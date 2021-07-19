@@ -26,7 +26,8 @@ public class CajaS {
 	}
 	
 	public Palabra32bits sustitucion(byte entrada) {
-		return arreglo[Byte.toUnsignedInt(entrada)];
+		int indice = Byte.toUnsignedInt(entrada);
+		return arreglo[indice];
 	}
 	
     final static int sbox_init_1[] = {

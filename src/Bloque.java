@@ -15,8 +15,7 @@ public class Bloque {
 	
 	public static Bloque[] getBloques(String cadena) {
 		byte[] bytesString = cadena.getBytes(Charset.defaultCharset());
-		int modulo = bytesString.length / 8;
-		
+		int modulo = bytesString.length % 8;
 		
 		if(modulo != 0)
 			bytesString = agregarCeros(bytesString, 8 - modulo);

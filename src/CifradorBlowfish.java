@@ -25,9 +25,9 @@ public class CifradorBlowfish {
 	}
 	
 	private String cifrarConSubclaves(String textoPlano, Palabra32bits[] subclaves, CajaS[] cajasS) {
+		System.out.println("\nSubclaves generadas:\n" + Arrays.toString(subclaves) + "\n");
+		
 		Bloque[] bloques = Bloque.getBloques(textoPlano);
-		String hexSubclaves = Arrays.toString(subclaves);
-		System.out.println("Hexadecimal: " + hexSubclaves);
 		Bloque[] bloquesCifrados = new Bloque[bloques.length];
 		
 		for(int i = 0; i < bloques.length; i++) {
@@ -55,7 +55,10 @@ public class CifradorBlowfish {
 	}
 	
 	public String descifrar(String textoCifrado, Palabra32bits[] clave) {
-		return cifrarConSubclaves(textoCifrado, invertirClaves(generarSubclaves(clave)), cajasS);
+		Palabra32bits[] subclavesGeneradas = generarSubclaves(clave);
+		Palabra32bits[] subclavesInvertidas = invertirClaves(subclavesGeneradas);
+		
+		return cifrarConSubclaves(textoCifrado, subclavesInvertidas, cajasS);
 	}
 	
 	public String descifrar(String textoCifrado, int[] clave) {
@@ -72,9 +75,11 @@ public class CifradorBlowfish {
 		
 		return clavesInvertidas;
 	}
+	
 	private Palabra32bits funcionF(Palabra32bits entrada, CajaS[] cajasS) {
 		Palabra32bits resultado = new Palabra32bits();
-		resultado = cajasS[0].sustitucion(entrada.getByte(0)).sumar(cajasS[1].sustitucion(entrada.getByte(1)));
+		resultado = cajasS[0].sustitucion(entrada.getByte(0))
+				.sumar(cajasS[1].sustitucion(entrada.getByte(1)));
 		resultado = resultado.xor(cajasS[2].sustitucion(entrada.getByte(2)));
 		resultado = resultado.sumar(cajasS[3].sustitucion(entrada.getByte(3)));
 		

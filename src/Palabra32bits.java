@@ -1,4 +1,5 @@
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 public class Palabra32bits {
 	private byte[] palabra = new byte[4];
@@ -45,12 +46,13 @@ public class Palabra32bits {
 		int intPalabra2 = ByteBuffer.wrap(palabra.palabra).getInt();
 		int suma = intPalabra1 + intPalabra2;
 		
-		return new Palabra32bits(ByteBuffer.allocate(4).putInt(suma).array());
+		Palabra32bits resultado = new Palabra32bits(ByteBuffer.allocate(4).putInt(suma).array());
+		return resultado;
 		
 	}
 	
 	public String getString() {
-		return new String(palabra);
+		return new String(palabra, Charset.defaultCharset());
 	}
 	
 	public static Palabra32bits[] intToPalabra(int[] palabrasInt) {
