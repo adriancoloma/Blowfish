@@ -23,6 +23,7 @@ public class CajaS {
 	
 	public void setPalabra(int indice, Palabra32bits palabra) {
 		arreglo[indice] = palabra;
+		
 	}
 	
 	public Palabra32bits sustitucion(byte entrada) {

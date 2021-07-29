@@ -13,8 +13,16 @@ public class Bloque {
 		return stringBloques;
 	}
 	
-	public static Bloque[] getBloques(String cadena) {
-		byte[] bytesString = cadena.getBytes(Charset.defaultCharset());
+	public static String toHexString(Bloque[] bloques) {
+		String stringBloques = "";
+		for(Bloque bloque : bloques) {
+			stringBloques += bloque.getHexString();
+		}
+		
+		return stringBloques;
+	}
+	
+	private static Bloque[] getBloques(byte[] bytesString) {
 		int modulo = bytesString.length % 8;
 		
 		if(modulo != 0)
@@ -31,6 +39,31 @@ public class Bloque {
 			
 		return bloques;
 		
+	}
+	
+	public static Bloque[] getBloques(String cadena) {
+		byte[] bytesString = cadena.getBytes(Charset.defaultCharset());
+		return getBloques(bytesString);
+	}
+	
+	public static Bloque[] getHexBloques(String cadena) {
+		
+		if(cadena.length() % 2 != 0)
+			cadena = "0" + cadena;
+		
+		byte[] bytes = new byte[cadena.length() / 2];
+		
+		for(int i = 0, j = 0; i < cadena.length(); i += 2, j++) {
+			String byteString = cadena.substring(i, i + 2);
+			bytes[j] = hexToByte(byteString);
+		}
+		
+		return getBloques(bytes);
+	}
+	
+	private static byte hexToByte(String hexCadena) {
+		byte[] cadenaBytes = javax.xml.bind.DatatypeConverter.parseHexBinary(hexCadena);
+		return cadenaBytes[0];
 	}
 	
 	private static byte[] agregarCeros(byte[] cadenaBytes, int numCeros) {
@@ -60,5 +93,9 @@ public class Bloque {
 	
 	public String getString() {
 		return bloque[0].getString() + bloque[1].getString();
+	}
+	
+	public String getHexString() {
+		return bloque[0].getHexString() + bloque[1].getHexString();
 	}
 }

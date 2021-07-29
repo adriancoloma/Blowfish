@@ -4,7 +4,7 @@ import java.util.StringTokenizer;
 public class Main {
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-		CifradorBlowfish blowfish = new CifradorBlowfish();
+		CifradorBlowfish blowfish = new CifradorBlowfish(CifradorBlowfish.MODO_HEX);
 		boolean continuar = true;
 		
 		while(continuar) {			

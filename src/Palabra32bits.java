@@ -1,6 +1,8 @@
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+import javax.xml.bind.DatatypeConverter;
+
 public class Palabra32bits {
 	private byte[] palabra = new byte[4];
 	
@@ -71,5 +73,8 @@ public class Palabra32bits {
 		return cadenaHex;
 	}
 	
+	public String getHexString() {
+		return DatatypeConverter.printHexBinary(palabra);
+	}
 	
 }
